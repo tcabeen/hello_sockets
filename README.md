@@ -111,7 +111,28 @@ PubSub, we finally learn, is short for publisher/subscriber. Learning to configu
 
 PubSub links the local node to all remote nodes and can broadcast messages anywhere. As long as the nodes can intercommunicate, clients and responses can reach one another through PubSub.
 
-Oh my goodness it's after 7:30. I should go eat lunch. And dinner.
+It looks like the standard adapter is called pg2, but a Redis PubSub adapter is available and presumably others.
+
+This was a truly brief exercise, but we used `iex` for the first time. I've been reading about it, and it's similar to when we used mix to start the server, but it leaves us an input so that we can push content from the server to clients (among other things, presumably).
+
+In this exercise, we launched the server with
+`iex -S mix phx.server`
+
+Then, on the client terminal, we ran the same 3 commands again.
+`wscat -c 'ws://localhost:4000/socket/websocket?vsn=2.0.0'`
+`["1","1","ping:wild","phx_join",{}]`
+`["1","1","ping:wild","ping",{}]`
+
+Back to the terminal to enter more commands, but if you're taking a few seconds to do it, you can hit that ping command every 20 seconds to prevent a timeout.
+
+From the server's iex(n)> prompt:
+`HelloSocketsWeb.Endpoint.broadcast("ping", "test", %{data: "test"})` and a message will appear on the client! Because it's connected to the "ping" topic.
+`HelloSocketsWeb.Endpoint.broadcast("other", "x", %{})` but nothing happens on the client, because it isn't connected to the "other" topic.
+
+At the end of this section was an aside about reading source code. 🥰
+
+--- holder ---
+Oh my days it's after midnight again.
 
 # TODO
 

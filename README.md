@@ -131,8 +131,43 @@ From the server's iex(n)> prompt:
 
 At the end of this section was an aside about reading source code. 🥰
 
+### Real-Time Messages
+
+The message structure is being covered now!
+
+```
+[
+    "1",
+    "1",
+    "ping",
+    "phx_join",
+    {}
+]
+```
+
+translates to
+
+```
+[
+    join reference,
+    message reference,
+    topic,
+    event,
+    payload
+]
+```
+
+Having everything as a simple string except the payload, which is a complex data type makes a ton of sense.
+Join reference: provided by client; increments each time a channel is joined
+Message reference: provided by client; increments each time client sends a message
+Topic: channel topic, as previously covered
+Event: identifies the message; channel can handle events via pattern matching
+Payload: JSON encoded map with message contents; channel implementation handles it
+
+For messages originating on the server, join and message refs are NULL, because client provides those values, and our server messages were not replies to a client-initiated message.
+
 --- holder ---
-Oh my days it's after midnight again.
+Interview today. Super nervous and excited. Holding it together mostly. Switched from coffee so my throat doesn't rasp out lol. I love this.
 
 # TODO
 
